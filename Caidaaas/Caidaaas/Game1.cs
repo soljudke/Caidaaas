@@ -41,14 +41,29 @@ namespace Caidaaas
         int gana = 0;
         bool click = false;
         bool click2 = false;
+        int flag1 = 0;
+        int flag2 = 0;
+        int flag3 = 0;
+        int letra1 = -1;
+        int letra2=-1;
+        int letra3=-1;
         Texture2D yupi;
-       
+        Texture2D background;
+        public enum EstadoJuego
+        {
+            Inicio,
+            Juego,
+        }
+        EstadoJuego estado = EstadoJuego.Juego;
+        EstadoJuego estadoViejo = EstadoJuego.Inicio;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
+        #region cosas
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -76,7 +91,7 @@ namespace Caidaaas
 
             // TODO: use this.Content to load your game content here
             yupi = Content.Load<Texture2D>("yupi");
-           
+            background = Content.Load<Texture2D>("background");
             for (int i = 0; i < textABC.Length; i++)
             {
                 fueTocado[i] = 0;
@@ -140,6 +155,8 @@ namespace Caidaaas
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        #endregion
+
         MouseState currentMouseState;
         MouseState previousMouseState;
         protected override void Update(GameTime gameTime)
@@ -152,98 +169,114 @@ namespace Caidaaas
 
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-            for (int i = 0; i < textABC.Length; i++)
+            #region Juego
+            if (estado==EstadoJuego.Juego)
             {
-                if (!click)
+                for (int i = 0; i < textABC.Length; i++)
                 {
-                    recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);   
-                }
-                else
-                {
-                    if (fueTocado[i]==1)
+                    if (!click)
                     {
-                        cosas[i] = pressedY[i];
-                    recABC[i] = new Rectangle(pressedX[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                        recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
                     }
-                    
-                }
-               
-
-            }
-            for (int i = 0; i < textABC.Length; i++)
-            {
-               
-                if (recABC[i].Contains(currentMouseState.X, currentMouseState.Y) && (recABC[i].Contains(previousMouseState.X, previousMouseState.Y)) && (previousMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed))
-                {
-                    if (iSele>=0)
+                    else
                     {
-                        fueTocado[iSele] = 0;
+                        if (fueTocado[i] == 1)
+                        {
+                            cosas[i] = pressedY[i];
+                            recABC[i] = new Rectangle(pressedX[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                        }
+
                     }
-                    
 
-                    iSele = i;
-                    i = textABC.Length - 1;
+
                 }
-            }
-            if (previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed)
-            {
-                click = true;
-                click2 = false;
-                fueTocado[iSele] = 1;
-                pressedX[iSele] = currentMouseState.X - 30;
-                pressedY[iSele] = currentMouseState.Y - 30;                
-                recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
-            }
-            else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Pressed)
-            {
-                click = true;
-                click2 = false;
-            }
-            else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Released)
-            {
-                click = false;
-                click2 = true;
-               
-            }
-            else if (previousMouseState.LeftButton == ButtonState.Pressed & currentMouseState.LeftButton == ButtonState.Released)
-            {
-                click = false;
-                click2 = true;
-                
-            }
-            //////////////////////////////////////
-            //Como fijarse los intersect sin que se salga del indice
-            //Yupi desaparece aunque gana=1(no deberia aparecer)
-            ////////////////////
-            if (click2)
-            {
-                if (gana<4)
+                for (int i = 0; i < textABC.Length; i++)
                 {
-                    
-                    if (iSele>=0)
+
+                    if (recABC[i].Contains(currentMouseState.X, currentMouseState.Y) && (recABC[i].Contains(previousMouseState.X, previousMouseState.Y)) && (previousMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed))
                     {
+                        if (iSele >= 0)
+                        {
+                            fueTocado[iSele] = 0;
+                        }
+
+
+                        iSele = i;
+                        i = textABC.Length - 1;
+                    }
+                }
+                if (iSele != -1)
+                {
+                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed))
+                    {
+                        click = true;
+                        click2 = false;
+                        fueTocado[iSele] = 1;
+                        pressedX[iSele] = currentMouseState.X - 30;
+                        pressedY[iSele] = currentMouseState.Y - 30;
                         recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
-                        if (recCajaABC[0].Intersects(recABC[iSele]) && cajaABC[0].Name == textABC[iSele].Name)
-                        {
-                            gana++;
-                        }
-                        else if (recCajaABC[1].Intersects(recABC[iSele]) && cajaABC[1].Name == textABC[iSele].Name)
-                        {
-                            gana++;
-                        }
-                        else if (recCajaABC[2].Intersects(recABC[iSele]) && cajaABC[2].Name == textABC[iSele].Name)
-                        {
-                            gana++;
-                        }
                     }
-                    
+                    else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        click = true;
+                        click2 = false;
+                    }
+                    else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Released)
+                    {
+                        click = false;
+                        click2 = true;
+
+                    }
+                    else if (previousMouseState.LeftButton == ButtonState.Pressed & currentMouseState.LeftButton == ButtonState.Released)
+                    {
+                        click = false;
+                        click2 = true;
+
+                    }
                 }
-                    
-                
+                //////////////////////////////////////
+                //Como fijarse los intersect sin que se salga del indice
+                //Yupi desaparece aunque gana=1(no deberia aparecer)
+                ////////////////////
+                if (click2)
+                {
+                    if (gana < 4)
+                    {
+
+                        if (iSele >= 0)
+                        {
+                            recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
+                            if ((recCajaABC[0].Intersects(recABC[iSele]) && cajaABC[0].Name == textABC[iSele].Name) && flag1 == 0)
+                            {
+                                gana++;
+                                flag1 = 1;
+                                letra1 = iSele;
+                            }
+                            else if ((recCajaABC[1].Intersects(recABC[iSele]) && cajaABC[1].Name == textABC[iSele].Name) && flag2 == 0)
+                            {
+                                gana++;
+                                flag2 = 1;
+                                letra2 = iSele;
+                            }
+                            else if ((recCajaABC[2].Intersects(recABC[iSele]) && cajaABC[2].Name == textABC[iSele].Name) && flag3 == 0)
+                            {
+                                gana++;
+                                flag3 = 1;
+                                letra3 = iSele;
+                            }
+                        }
+
+                    }
+
+
+                }
+                recCajaABC[0] = new Rectangle(250, 500, cajaABC[0].Width, cajaABC[0].Height);
+                recCajaABC[1] = new Rectangle(450, 500, cajaABC[1].Width, cajaABC[1].Height);
+                recCajaABC[2] = new Rectangle(650, 500, cajaABC[2].Width, cajaABC[2].Height);
+
             }
-            recCajaABC[0] = new Rectangle(250, 500, cajaABC[0].Width, cajaABC[0].Height);
-            recCajaABC[1] = new Rectangle(450, 500, cajaABC[1].Width, cajaABC[1].Height);
-            recCajaABC[2] = new Rectangle(650, 500, cajaABC[2].Width, cajaABC[2].Height);
+            #endregion
+
 
 
 
@@ -258,47 +291,61 @@ namespace Caidaaas
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Orange);
+            
             
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
-            spriteBatch.Draw(cajaABC[0], new Vector2(250, 500), Color.White);
-            spriteBatch.Draw(cajaABC[1], new Vector2(450, 500), Color.White);
-            spriteBatch.Draw(cajaABC[2], new Vector2(650, 500), Color.White);
-            if (gana<3)
+            spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
+            if (estado==EstadoJuego.Inicio)
             {
-                if (!click)
-                {
-                    for (int i = 0; i < textABC.Length; i++)
-                    {
-                        cosas[i]++;
-                        spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
-                        recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < textABC.Length; i++)
-                    {
-                        if (i != iSele)
-                        {
-                            cosas[i]++;
-                            spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
-                            recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                        }
-                        else
-                        {
-                            spriteBatch.Draw(textABC[i], new Vector2(currentMouseState.X - 30, currentMouseState.Y - 30), Color.White);
-                        }
-                    }
-                }
-            }
-            else if (gana == 3)
-            {
-                spriteBatch.Draw(yupi, new Vector2(100,100), Color.White);
                 
             }
+            if (estado == EstadoJuego.Juego)
+            {
+                spriteBatch.Draw(cajaABC[0], new Vector2(250, 500), Color.White);
+                spriteBatch.Draw(cajaABC[1], new Vector2(450, 500), Color.White);
+                spriteBatch.Draw(cajaABC[2], new Vector2(650, 500), Color.White);
+                if (gana < 3)
+                {
+                    if (!click)
+                    {
+                        for (int i = 0; i < textABC.Length; i++)
+                        {
+                            if (i != letra1 && i != letra2 && i != letra3)
+                            {
+                                cosas[i]++;
+                                spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
+                                recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < textABC.Length; i++)
+                        {
+                            if (i != iSele)
+                            {
+                                cosas[i]++;
+                                spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
+                                recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                            }
+                            else
+                            {
+                                spriteBatch.Draw(textABC[i], new Vector2(currentMouseState.X - 30, currentMouseState.Y - 30), Color.White);
+                            }
+                        }
+                    }
+                }
+                else if (gana == 3)
+                {
+                    spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+
+                }
+            }
+            
             
             spriteBatch.End();
 
