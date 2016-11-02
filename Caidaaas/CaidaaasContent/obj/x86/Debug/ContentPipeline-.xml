@@ -539,7 +539,25 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2016-11-02T14:15:51.0997214-03:00</Time>
+      <Time>2016-11-02T14:57:36.7685282-03:00</Time>
+    </Item>
+    <Item>
+      <Source>background2.jpg</Source>
+      <Name>background2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background2.xnb</Output>
+      <Time>2016-11-02T16:01:39.1119618-03:00</Time>
+    </Item>
+    <Item>
+      <Source>homepage.png</Source>
+      <Name>homepage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\homepage.xnb</Output>
+      <Time>2016-11-02T15:12:49.659752-03:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -129,3 +129,5 @@ D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\obj\x86\Debug\M
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\obj\x86\Debug\Caidaaas.exe
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\obj\x86\Debug\Caidaaas.pdb
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background.xnb
+D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background2.xnb
+D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\homepage.xnb

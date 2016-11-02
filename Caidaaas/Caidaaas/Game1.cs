@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using System.Timers;
 namespace Caidaaas
 {
     /// <summary>
@@ -20,11 +20,12 @@ namespace Caidaaas
         SpriteBatch spriteBatch;
         Texture2D[] textABC2 = new Texture2D[27];
         Texture2D[] cajaABC2 = new Texture2D[27];
-        int[] posY = new int[10] { 20, 120, 220, 320, 420, 520, 620, 720, 820, 920 };
+        int[] posY = new int[10] { 130, 230, 330, 430, 530, 630, 730, 830, 930, 1030 };
         int[] cosas = new int[10];
         int[] pressedY = new int[10];
         int[] pressedX = new int[10];
         int[] fueTocado = new int[10];
+        bool[] mostrar = new bool[10];
         string[] abc = new string[27] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "Ò", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
         string[] cabc = new string[27] { "cajaA", "cajaB", "cajaC", "cajaD", "cajaE", "cajaF", "cajaG", "cajaH", "cajaI", "cajaJ", "cajaK", "cajaL", "cajaM", "cajaN", "caja—", "cajaO", "cajaP", "cajaQ", "cajaR", "cajaS", "cajaT", "cajaU", "cajaV", "cajaW", "cajaX", "cajaY", "cajaZ" };
         Rectangle[] recABC2 = new Rectangle[27];
@@ -49,6 +50,18 @@ namespace Caidaaas
         int letra3=-1;
         Texture2D yupi;
         Texture2D background;
+        Texture2D background2;
+        Texture2D home;
+        Rectangle recHome;
+
+        private static readonly TimeSpan intervalBetweenAttack1 = TimeSpan.FromMilliseconds(10);
+        private TimeSpan lastTimeAttack;
+        int ahora, antes;
+        bool tarda = false;
+        Timer t = new Timer(3000f); 
+
+
+
         public enum EstadoJuego
         {
             Inicio,
@@ -56,7 +69,6 @@ namespace Caidaaas
         }
         EstadoJuego estado = EstadoJuego.Juego;
         EstadoJuego estadoViejo = EstadoJuego.Inicio;
-
 
         public Game1()
         {
@@ -74,8 +86,9 @@ namespace Caidaaas
         {
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
-            graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 650;
+           //graphics.PreferredBackBufferWidth = 1000;
+           //graphics.PreferredBackBufferHeight = 650;
+           graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -92,10 +105,13 @@ namespace Caidaaas
             // TODO: use this.Content to load your game content here
             yupi = Content.Load<Texture2D>("yupi");
             background = Content.Load<Texture2D>("background");
+            background2 = Content.Load<Texture2D>("background2");
+            home = Content.Load<Texture2D>("homepage");
             for (int i = 0; i < textABC.Length; i++)
             {
                 fueTocado[i] = 0;
                 cosas[i] = 0;
+                mostrar[i] = true;
                 textABC2[i] = Content.Load<Texture2D>(abc[i]);
                 recABC2[i] = new Rectangle(x, cosas[i], textABC2[i].Width, textABC2[i].Height);
                 cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
@@ -170,6 +186,7 @@ namespace Caidaaas
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
             #region Juego
+            
             if (estado==EstadoJuego.Juego)
             {
                 for (int i = 0; i < textABC.Length; i++)
@@ -201,13 +218,14 @@ namespace Caidaaas
                         }
 
 
+
                         iSele = i;
                         i = textABC.Length - 1;
                     }
                 }
                 if (iSele != -1)
                 {
-                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed))
+                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recABC[iSele].Contains(previousMouseState.X, previousMouseState.Y) && (recABC[iSele].Contains(currentMouseState.X, currentMouseState.Y))))
                     {
                         click = true;
                         click2 = false;
@@ -233,6 +251,12 @@ namespace Caidaaas
                         click2 = true;
 
                     }
+                
+                    
+                }
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    estado = EstadoJuego.Inicio;
                 }
                 //////////////////////////////////////
                 //Como fijarse los intersect sin que se salga del indice
@@ -250,19 +274,19 @@ namespace Caidaaas
                             {
                                 gana++;
                                 flag1 = 1;
-                                letra1 = iSele;
+                                mostrar[iSele] = false;
                             }
                             else if ((recCajaABC[1].Intersects(recABC[iSele]) && cajaABC[1].Name == textABC[iSele].Name) && flag2 == 0)
                             {
                                 gana++;
                                 flag2 = 1;
-                                letra2 = iSele;
+                                mostrar[iSele] = false;
                             }
                             else if ((recCajaABC[2].Intersects(recABC[iSele]) && cajaABC[2].Name == textABC[iSele].Name) && flag3 == 0)
                             {
                                 gana++;
                                 flag3 = 1;
-                                letra3 = iSele;
+                                mostrar[iSele] = false;
                             }
                         }
 
@@ -273,12 +297,26 @@ namespace Caidaaas
                 recCajaABC[0] = new Rectangle(250, 500, cajaABC[0].Width, cajaABC[0].Height);
                 recCajaABC[1] = new Rectangle(450, 500, cajaABC[1].Width, cajaABC[1].Height);
                 recCajaABC[2] = new Rectangle(650, 500, cajaABC[2].Width, cajaABC[2].Height);
+                recHome = new Rectangle(1200, 30, home.Width, home.Height);
+                if (lastTimeAttack + intervalBetweenAttack1 < gameTime.TotalGameTime)
+                {
+                    int esto = Convert.ToInt32(gameTime.TotalGameTime.Milliseconds);
+                    if (esto  % 2== 0)
+                    {
+                        tarda = true;
+                    }
+                    else
+                    {
+                        tarda = false;
+                    }
+                    
 
+                    lastTimeAttack = gameTime.TotalGameTime;
+                }
+                
             }
+            
             #endregion
-
-
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
@@ -296,54 +334,82 @@ namespace Caidaaas
             
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
+
+            
             if (estado==EstadoJuego.Inicio)
             {
-                
+                GraphicsDevice.Clear(Color.Orange);
+                spriteBatch.Draw(background2, new Rectangle(0, 0, background2.Width, background2.Height), Color.White);
             }
             if (estado == EstadoJuego.Juego)
             {
-                spriteBatch.Draw(cajaABC[0], new Vector2(250, 500), Color.White);
-                spriteBatch.Draw(cajaABC[1], new Vector2(450, 500), Color.White);
-                spriteBatch.Draw(cajaABC[2], new Vector2(650, 500), Color.White);
-                if (gana < 3)
-                {
-                    if (!click)
+
+                
+                    spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
+                    spriteBatch.Draw(home, new Vector2(1200, 30), Color.White);
+                    spriteBatch.Draw(cajaABC[0], new Vector2(250, 500), Color.White);
+                    spriteBatch.Draw(cajaABC[1], new Vector2(450, 500), Color.White);
+                    spriteBatch.Draw(cajaABC[2], new Vector2(650, 500), Color.White);
+                    if (gana < 3)
                     {
-                        for (int i = 0; i < textABC.Length; i++)
+                        if (!click)
                         {
-                            if (i != letra1 && i != letra2 && i != letra3)
+                            for (int i = 0; i < textABC.Length; i++)
                             {
-                                cosas[i]++;
-                                spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
-                                recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                            }
+                                if (mostrar[i])
+                                {
+                                    
+                                    if (tarda)
+                                    {
+                                        cosas[i]++;
+                                    }
+
+                                    spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
+                                    recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
+
+                                }
 
 
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < textABC.Length; i++)
-                        {
-                            if (i != iSele)
-                            {
-                                cosas[i]++;
-                                spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
-                                recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                            }
-                            else
-                            {
-                                spriteBatch.Draw(textABC[i], new Vector2(currentMouseState.X - 30, currentMouseState.Y - 30), Color.White);
                             }
                         }
-                    }
-                }
-                else if (gana == 3)
-                {
-                    spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+                        else
+                        {
+                            for (int i = 0; i < textABC.Length; i++)
+                            {
+                                if (i != iSele)
+                                {
+                                    if (mostrar[i])
+                                    {
+                                        cosas[i]++;
+                                        spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
+                                        recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                                    }
 
-                }
+                                }
+                                else
+                                {
+                                    if (mostrar[i])
+                                    {
+                                        spriteBatch.Draw(textABC[i], new Vector2(currentMouseState.X - 30, currentMouseState.Y - 30), Color.White);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    else if (gana == 3)
+                    {
+                        spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+
+                    }
+
+
+
+
+                  //////////////////////////////////////////////
+                
+                
+               
             }
             
             
