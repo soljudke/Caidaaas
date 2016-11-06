@@ -595,6 +595,15 @@
       <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\3.xnb</Output>
       <Time>2016-11-06T14:08:55.3100154-03:00</Time>
     </Item>
+    <Item>
+      <Source>back.png</Source>
+      <Name>back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\back.xnb</Output>
+      <Time>2016-11-06T14:34:36.3637019-03:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
