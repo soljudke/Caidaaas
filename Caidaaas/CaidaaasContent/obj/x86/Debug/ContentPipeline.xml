@@ -532,6 +532,69 @@
       <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\yupi.xnb</Output>
       <Time>2016-10-30T17:07:31.1108159-03:00</Time>
     </Item>
+    <Item>
+      <Source>background.jpg</Source>
+      <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2016-11-02T22:01:20.1752773-03:00</Time>
+    </Item>
+    <Item>
+      <Source>homepage.png</Source>
+      <Name>homepage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\homepage.xnb</Output>
+      <Time>2016-11-02T22:01:20.1842854-03:00</Time>
+    </Item>
+    <Item>
+      <Source>background2.jpg</Source>
+      <Name>background2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background2.xnb</Output>
+      <Time>2016-11-02T22:01:20.1832858-03:00</Time>
+    </Item>
+    <Item>
+      <Source>play.png</Source>
+      <Name>play</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\play.xnb</Output>
+      <Time>2016-11-06T13:10:42.7200843-03:00</Time>
+    </Item>
+    <Item>
+      <Source>1.png</Source>
+      <Name>1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\1.xnb</Output>
+      <Time>2016-11-06T14:07:16.1561033-03:00</Time>
+    </Item>
+    <Item>
+      <Source>2.png</Source>
+      <Name>2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\2.xnb</Output>
+      <Time>2016-11-06T14:08:14.0799056-03:00</Time>
+    </Item>
+    <Item>
+      <Source>3.png</Source>
+      <Name>3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\3.xnb</Output>
+      <Time>2016-11-06T14:08:55.3100154-03:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

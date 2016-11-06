@@ -131,3 +131,10 @@ D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\obj\x86\Debug\C
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background.xnb
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background2.xnb
 D:\Users\41614549.ALMAGRO.002\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\homepage.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\homepage.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\background2.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\play.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\1.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\2.xnb
+C:\Users\c\Desktop\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\3.xnb

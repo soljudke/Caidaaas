@@ -19,7 +19,7 @@ namespace Caidaaas
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D[] textABC2 = new Texture2D[27];
-        Texture2D[] cajaABC2 = new Texture2D[27];
+        Texture2D[] cajaAB2 = new Texture2D[27];
         int[] posY = new int[10] { 130, 230, 330, 430, 530, 630, 730, 830, 930, 1030 };
         int[] cosas = new int[10];
         int[] pressedY = new int[10];
@@ -29,13 +29,19 @@ namespace Caidaaas
         string[] abc = new string[27] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "Ò", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
         string[] cabc = new string[27] { "cajaA", "cajaB", "cajaC", "cajaD", "cajaE", "cajaF", "cajaG", "cajaH", "cajaI", "cajaJ", "cajaK", "cajaL", "cajaM", "cajaN", "caja—", "cajaO", "cajaP", "cajaQ", "cajaR", "cajaS", "cajaT", "cajaU", "cajaV", "cajaW", "cajaX", "cajaY", "cajaZ" };
         Rectangle[] recABC2 = new Rectangle[27];
-        Rectangle[] recCajaABC2 = new Rectangle[27];
-        Texture2D[] textABC = new Texture2D[10];
-        Texture2D[] cajaABC = new Texture2D[3];
+        Rectangle[] recCajaAB2 = new Rectangle[27];
+        Texture2D[] textABC = new Texture2D[10];        
         Rectangle[] recABC = new Rectangle[10];
+        Texture2D[] cajaABC = new Texture2D[3];
         Rectangle[] recCajaABC = new Rectangle[3];
+        Texture2D[] cajaABC2 = new Texture2D[4];
+        Rectangle[] recCajaABC2 = new Rectangle[4];
+        Texture2D[] cajaABC3 = new Texture2D[5];
+        Rectangle[] recCajaABC3 = new Rectangle[5];
         List<int> listRand = new List<int>();
         List<int> listRand3 = new List<int>();
+        List<int> listRand4 = new List<int>();
+        List<int> listRand5 = new List<int>();
         int x = 20;
         int y = 20;
         int iSele=-1;
@@ -53,6 +59,14 @@ namespace Caidaaas
         Texture2D background2;
         Texture2D home;
         Rectangle recHome;
+        Texture2D play;
+        Rectangle recPlay;
+        Texture2D uno;
+        Rectangle recUno;
+        Texture2D dos;
+        Rectangle recDos;
+        Texture2D tres;
+        Rectangle recTres;
 
         private static readonly TimeSpan intervalBetweenAttack1 = TimeSpan.FromMilliseconds(10);
         private TimeSpan lastTimeAttack;
@@ -65,11 +79,18 @@ namespace Caidaaas
         public enum EstadoJuego
         {
             Inicio,
+            Niveles,
             Juego,
         }
-        EstadoJuego estado = EstadoJuego.Juego;
+        public enum Niveles
+        {
+            Uno,
+            Dos,
+            Tres,
+        }
+        EstadoJuego estado = EstadoJuego.Inicio;
         EstadoJuego estadoViejo = EstadoJuego.Inicio;
-
+        Niveles nivel;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -88,7 +109,7 @@ namespace Caidaaas
             IsMouseVisible = true;
            //graphics.PreferredBackBufferWidth = 1000;
            //graphics.PreferredBackBufferHeight = 650;
-           graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -107,6 +128,10 @@ namespace Caidaaas
             background = Content.Load<Texture2D>("background");
             background2 = Content.Load<Texture2D>("background2");
             home = Content.Load<Texture2D>("homepage");
+            play = Content.Load<Texture2D>("play");
+            uno = Content.Load<Texture2D>("1");
+            dos = Content.Load<Texture2D>("2");
+            tres = Content.Load<Texture2D>("3");
             for (int i = 0; i < textABC.Length; i++)
             {
                 fueTocado[i] = 0;
@@ -114,14 +139,16 @@ namespace Caidaaas
                 mostrar[i] = true;
                 textABC2[i] = Content.Load<Texture2D>(abc[i]);
                 recABC2[i] = new Rectangle(x, cosas[i], textABC2[i].Width, textABC2[i].Height);
-                cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
+                cajaAB2[i] = Content.Load<Texture2D>(cabc[i]);
                 x = x + textABC2[i].Width;
             }
-            Jugar();
+            Jugar1();
+            Jugar2();
+            Jugar3();
 
         }
         int num;
-        public void Jugar()
+        public void Jugar1()
         {
             Random rand = new Random();
 
@@ -157,6 +184,78 @@ namespace Caidaaas
             }
 
         }
+        public void Jugar2()
+        {
+            Random rand = new Random();
+            listRand.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                num = rand.Next(27);
+                if (!listRand.Contains(num))
+                {
+                    listRand.Add(num);
+                    textABC[i] = Content.Load<Texture2D>(abc[num]);
+                    textABC[i].Name = abc[num];
+                    recABC[i] = new Rectangle(x, cosas[i], textABC[i].Width, textABC[i].Height);
+
+                    x = x + textABC[i].Width;
+                }
+                else
+                    i--;
+            }
+            Random rand2 = new Random();
+            int num2;
+            for (int i = 0; i < 4; i++)
+            {
+                num2 = rand.Next(27);
+                if (!listRand4.Contains(num2) && listRand.Contains(num2))
+                {
+                    listRand4.Add(num2);
+                    cajaABC2[i] = Content.Load<Texture2D>(cabc[num2]);
+                    cajaABC2[i].Name = abc[num2];
+
+                }
+                else
+                    i--;
+            }
+
+        }
+        public void Jugar3()
+        {
+            Random rand = new Random();
+            listRand.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                num = rand.Next(27);
+                if (!listRand.Contains(num))
+                {
+                    listRand.Add(num);
+                    textABC[i] = Content.Load<Texture2D>(abc[num]);
+                    textABC[i].Name = abc[num];
+                    recABC[i] = new Rectangle(x, cosas[i], textABC[i].Width, textABC[i].Height);
+
+                    x = x + textABC[i].Width;
+                }
+                else
+                    i--;
+            }
+            Random rand2 = new Random();
+            int num2;
+            for (int i = 0; i < 5; i++)
+            {
+                num2 = rand.Next(27);
+                if (!listRand5.Contains(num2) && listRand.Contains(num2))
+                {
+                    listRand4.Add(num2);
+                    cajaABC3[i] = Content.Load<Texture2D>(cabc[num2]);
+                    cajaABC3[i].Name = abc[num2];
+
+                }
+                else
+                    i--;
+            }
+
+        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -185,115 +284,143 @@ namespace Caidaaas
 
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-            #region Juego
+            if (estado==EstadoJuego.Inicio)
+            {
+                recPlay = new Rectangle(550, 250, play.Width, play.Height);
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recPlay.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    estado = EstadoJuego.Niveles;
+                }
+
+
+
+
+            }
+            if (estado==EstadoJuego.Niveles)
+            {
+                recUno = new Rectangle(350, 250, uno.Width, uno.Height);
+                recDos = new Rectangle(500, 250, dos.Width, dos.Height);
+                recTres = new Rectangle(650, 250, tres.Width, tres.Height);
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recUno.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    estado = EstadoJuego.Juego;
+                    nivel = Niveles.Uno;
+                }
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recDos.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    estado = EstadoJuego.Juego;
+                    nivel = Niveles.Dos;
+                }
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recTres.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    estado = EstadoJuego.Juego;
+                    nivel = Niveles.Tres;
+                }
+            }
+            
             
             if (estado==EstadoJuego.Juego)
             {
-                for (int i = 0; i < textABC.Length; i++)
+                switch (nivel)
                 {
-                    if (!click)
-                    {
-                        recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                    }
-                    else
-                    {
-                        if (fueTocado[i] == 1)
+                    case Niveles.Uno:
+                        #region Uno
+                        for (int i = 0; i < textABC.Length; i++)
                         {
-                            cosas[i] = pressedY[i];
-                            recABC[i] = new Rectangle(pressedX[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                        }
-
-                    }
-
-
-                }
-                for (int i = 0; i < textABC.Length; i++)
-                {
-
-                    if (recABC[i].Contains(currentMouseState.X, currentMouseState.Y) && (recABC[i].Contains(previousMouseState.X, previousMouseState.Y)) && (previousMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed))
-                    {
-                        if (iSele >= 0)
-                        {
-                            fueTocado[iSele] = 0;
-                        }
-
-
-
-                        iSele = i;
-                        i = textABC.Length - 1;
-                    }
-                }
-                if (iSele != -1)
-                {
-                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recABC[iSele].Contains(previousMouseState.X, previousMouseState.Y) && (recABC[iSele].Contains(currentMouseState.X, currentMouseState.Y))))
-                    {
-                        click = true;
-                        click2 = false;
-                        fueTocado[iSele] = 1;
-                        pressedX[iSele] = currentMouseState.X - 30;
-                        pressedY[iSele] = currentMouseState.Y - 30;
-                        recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
-                    }
-                    else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        click = true;
-                        click2 = false;
-                    }
-                    else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Released)
-                    {
-                        click = false;
-                        click2 = true;
-
-                    }
-                    else if (previousMouseState.LeftButton == ButtonState.Pressed & currentMouseState.LeftButton == ButtonState.Released)
-                    {
-                        click = false;
-                        click2 = true;
-
-                    }
-                
-                    
-                }
-                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
-                {
-                    estado = EstadoJuego.Inicio;
-                }
-                //////////////////////////////////////
-                //Como fijarse los intersect sin que se salga del indice
-                //Yupi desaparece aunque gana=1(no deberia aparecer)
-                ////////////////////
-                if (click2)
-                {
-                    if (gana < 4)
-                    {
-
-                        if (iSele >= 0)
-                        {
-                            recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
-                            if ((recCajaABC[0].Intersects(recABC[iSele]) && cajaABC[0].Name == textABC[iSele].Name) && flag1 == 0)
+                            if (!click)
                             {
-                                gana++;
-                                flag1 = 1;
-                                mostrar[iSele] = false;
+                                recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
                             }
-                            else if ((recCajaABC[1].Intersects(recABC[iSele]) && cajaABC[1].Name == textABC[iSele].Name) && flag2 == 0)
+                            else
                             {
-                                gana++;
-                                flag2 = 1;
-                                mostrar[iSele] = false;
-                            }
-                            else if ((recCajaABC[2].Intersects(recABC[iSele]) && cajaABC[2].Name == textABC[iSele].Name) && flag3 == 0)
-                            {
-                                gana++;
-                                flag3 = 1;
-                                mostrar[iSele] = false;
+                                if (fueTocado[i] == 1)
+                                {
+                                    cosas[i] = pressedY[i];
+                                    recABC[i] = new Rectangle(pressedX[i], cosas[i], textABC[i].Width, textABC[i].Height);
+                                }
+
                             }
                         }
+                        for (int i = 0; i < textABC.Length; i++)
+                        {
 
-                    }
+                            if (recABC[i].Contains(currentMouseState.X, currentMouseState.Y) && (recABC[i].Contains(previousMouseState.X, previousMouseState.Y)) && (previousMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed))
+                            {
+                                if (iSele >= 0)
+                                {
+                                    fueTocado[iSele] = 0;
+                                }
 
+                                iSele = i;
+                                i = textABC.Length - 1;
+                            }
+                        }
+                        if (iSele != -1)
+                        {
+                            if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recABC[iSele].Contains(previousMouseState.X, previousMouseState.Y) && (recABC[iSele].Contains(currentMouseState.X, currentMouseState.Y))))
+                            {
+                                click = true;
+                                click2 = false;
+                                fueTocado[iSele] = 1;
+                                pressedX[iSele] = currentMouseState.X - 30;
+                                pressedY[iSele] = currentMouseState.Y - 30;
+                                recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
+                            }
+                            else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Pressed)
+                            {
+                                click = true;
+                                click2 = false;
+                            }
+                            else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Released)
+                            {
+                                click = false;
+                                click2 = true;
 
-                }
+                            }
+                            else if (previousMouseState.LeftButton == ButtonState.Pressed & currentMouseState.LeftButton == ButtonState.Released)
+                            {
+                                click = false;
+                                click2 = true;
+
+                            }
+
+                        }
+                        if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
+                        {
+                            estado = EstadoJuego.Niveles;
+                        }
+                        if (click2)
+                        {
+                            if (gana < 4)
+                            {
+
+                                if (iSele >= 0)
+                                {
+                                    recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
+                                    if ((recCajaABC[0].Intersects(recABC[iSele]) && cajaABC[0].Name == textABC[iSele].Name) && flag1 == 0)
+                                    {
+                                        gana++;
+                                        flag1 = 1;
+                                        mostrar[iSele] = false;
+                                    }
+                                    else if ((recCajaABC[1].Intersects(recABC[iSele]) && cajaABC[1].Name == textABC[iSele].Name) && flag2 == 0)
+                                    {
+                                        gana++;
+                                        flag2 = 1;
+                                        mostrar[iSele] = false;
+                                    }
+                                    else if ((recCajaABC[2].Intersects(recABC[iSele]) && cajaABC[2].Name == textABC[iSele].Name) && flag3 == 0)
+                                    {
+                                        gana++;
+                                        flag3 = 1;
+                                        mostrar[iSele] = false;
+                                    }
+                                }
+
+                            }
+
+                        }
+                        
                 recCajaABC[0] = new Rectangle(250, 500, cajaABC[0].Width, cajaABC[0].Height);
                 recCajaABC[1] = new Rectangle(450, 500, cajaABC[1].Width, cajaABC[1].Height);
                 recCajaABC[2] = new Rectangle(650, 500, cajaABC[2].Width, cajaABC[2].Height);
@@ -313,10 +440,23 @@ namespace Caidaaas
 
                     lastTimeAttack = gameTime.TotalGameTime;
                 }
-                
+                        #endregion
+                        break;
+                    case Niveles.Dos:
+                        break;
+                    case Niveles.Tres:
+                        break;
+                    default:
+                        break;
+                }
             }
+                
+
+                
+                
             
-            #endregion
+            
+            
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
@@ -340,6 +480,14 @@ namespace Caidaaas
             {
                 GraphicsDevice.Clear(Color.Orange);
                 spriteBatch.Draw(background2, new Rectangle(0, 0, background2.Width, background2.Height), Color.White);
+                spriteBatch.Draw(play, new Vector2(550, 250), Color.White);
+            }
+            if (estado==EstadoJuego.Niveles)
+            {
+                spriteBatch.Draw(background2, new Rectangle(0, 0, background2.Width, background2.Height), Color.White);
+                spriteBatch.Draw(uno, new Vector2(350, 250), Color.White);
+                spriteBatch.Draw(dos, new Vector2(500, 250), Color.White);
+                spriteBatch.Draw(tres, new Vector2(650, 250), Color.White);
             }
             if (estado == EstadoJuego.Juego)
             {
