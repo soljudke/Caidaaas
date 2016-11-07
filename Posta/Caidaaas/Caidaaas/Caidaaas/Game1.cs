@@ -53,6 +53,7 @@ namespace Caidaaas
         int letra2=-1;
         int letra3=-1;
         Texture2D yupi;
+        Texture2D ouch;
         Texture2D background;
         Texture2D background2;
         Texture2D home;
@@ -67,14 +68,12 @@ namespace Caidaaas
         Rectangle recDos;
         Texture2D tres;
         Rectangle recTres;
+        Texture2D logo;
         private static readonly TimeSpan intervalBetweenAttack1 = TimeSpan.FromMilliseconds(10);
         private TimeSpan lastTimeAttack;
         int ahora, antes;
         bool tarda = false;
         Timer t = new Timer(3000f); 
-
-
-
         public enum EstadoJuego
         {
             Inicio,
@@ -125,6 +124,7 @@ namespace Caidaaas
 
             // TODO: use this.Content to load your game content here
             yupi = Content.Load<Texture2D>("yupi");
+            ouch = Content.Load<Texture2D>("ouch");
             background = Content.Load<Texture2D>("background");
             background2 = Content.Load<Texture2D>("background2");
             home = Content.Load<Texture2D>("homepage");
@@ -133,6 +133,7 @@ namespace Caidaaas
             uno = Content.Load<Texture2D>("1");
             dos = Content.Load<Texture2D>("2");
             tres = Content.Load<Texture2D>("3");
+            logo = Content.Load<Texture2D>("logo");
           /*  for (int i = 0; i < textABC.Length; i++)
             {
                 fueTocado[i] = 0;
@@ -168,6 +169,7 @@ namespace Caidaaas
         int num;
         public void Jugar()
         {
+            listRand.Clear();
             Random rand = new Random();
 
             for (int i = 0; i < 10; i++)
@@ -187,6 +189,7 @@ namespace Caidaaas
             }
             if (nivel == Niveles.Uno)
             {
+                listRand3.Clear();
                 cajaABC = new Texture2D[3];
                 recCajaABC = new Rectangle[3];
                 Random rand2 = new Random();
@@ -207,6 +210,7 @@ namespace Caidaaas
             }
             else if (nivel == Niveles.Dos)
             {
+                listRand3.Clear();
                 cajaABC = new Texture2D[4];
                 recCajaABC = new Rectangle[4];
                 Random rand2 = new Random();
@@ -227,6 +231,7 @@ namespace Caidaaas
             }
             else  if (nivel == Niveles.Tres)
             {
+                listRand3.Clear();
                 cajaABC = new Texture2D[5];
                 recCajaABC = new Rectangle[5];
                 Random rand2 = new Random();
@@ -259,7 +264,7 @@ namespace Caidaaas
             currentMouseState = Mouse.GetState();
             if (estado==EstadoJuego.Inicio)
             {
-                recPlay = new Rectangle(500, 250, play.Width, play.Height);
+                recPlay = new Rectangle(500, 450, play.Width, play.Height);
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recPlay.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
                     estado = EstadoJuego.Niveles;
@@ -269,7 +274,7 @@ namespace Caidaaas
             if (estado == EstadoJuego.Niveles)
             {
                 #region niveles
-                recBack = new Rectangle(1100, 30, back.Width, back.Height);
+                recBack = new Rectangle(100, 30, back.Width, back.Height);
                 recUno = new Rectangle(350, 250, uno.Width, uno.Height);
                 recDos = new Rectangle(500, 250, dos.Width, dos.Height);
                 recTres = new Rectangle(650, 250, tres.Width, tres.Height);
@@ -293,6 +298,13 @@ namespace Caidaaas
                         cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
                         x = x + textABC2[i].Width;
                     }
+                    flag1 = 0;
+                    flag2 = 0;
+                    flag3 = 0;
+                    flag4 = 0;
+                    flag5 = 0;
+                    iSele = -1;
+                    gana = 0;
                     Jugar();
                 }
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recDos.Contains(currentMouseState.X, currentMouseState.Y)))
@@ -309,6 +321,13 @@ namespace Caidaaas
                         cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
                         x = x + textABC2[i].Width;
                     }
+                    flag1 = 0;
+                    flag2 = 0;
+                    flag3 = 0;
+                    flag4 = 0;
+                    flag5 = 0;
+                    iSele = -1;
+                    gana = 0;
                     Jugar();
                 }
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recTres.Contains(currentMouseState.X, currentMouseState.Y)))
@@ -325,6 +344,13 @@ namespace Caidaaas
                         cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
                         x = x + textABC2[i].Width;
                     }
+                    flag1 = 0;
+                    flag2 = 0;
+                    flag3 = 0;
+                    flag4 = 0;
+                    flag5 = 0;
+                    iSele = -1;
+                    gana = 0;
                     Jugar();
                 }
             
@@ -334,10 +360,11 @@ namespace Caidaaas
 
             if (estado==EstadoJuego.Juego)
             {
+                
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recBack.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
                     estado = EstadoJuego.Niveles;
-                    estadoViejo = EstadoJuego.Juego;
+                    //estadoViejo = EstadoJuego.Juego;
                 }
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
@@ -357,6 +384,7 @@ namespace Caidaaas
                         if (fueTocado[i] == 1)
                         {
                             cosas[i] = pressedY[i];
+                            
                             recABC[i] = new Rectangle(pressedX[i], cosas[i], textABC[i].Width, textABC[i].Height);
                             
                         }
@@ -374,8 +402,6 @@ namespace Caidaaas
                         {
                             fueTocado[iSele] = 0;
                         }
-
-
 
                         iSele = i;
                         i = textABC.Length - 1;
@@ -401,14 +427,14 @@ namespace Caidaaas
                     {
                         click = false;
                         click2 = true;
-                     
+                        
 
                     }
                     else if (previousMouseState.LeftButton == ButtonState.Pressed & currentMouseState.LeftButton == ButtonState.Released)
                     {
                         click = false;
                         click2 = true;
-                      
+                        posY[iSele] = currentMouseState.X - 30;
 
                     }
                 
@@ -418,10 +444,8 @@ namespace Caidaaas
                 {
                     estado = EstadoJuego.Inicio;
                 }
-                //////////////////////////////////////
-                //Como fijarse los intersect sin que se salga del indice
-                //Yupi desaparece aunque gana=1(no deberia aparecer)
-                ////////////////////
+
+
                 if (click2)
                 {
                     if (nivel==Niveles.Uno)
@@ -609,7 +633,8 @@ namespace Caidaaas
             {
                 GraphicsDevice.Clear(Color.Orange);
                 spriteBatch.Draw(background2, new Rectangle(0, 0, background2.Width, background2.Height), Color.White);
-                spriteBatch.Draw(play, new Vector2(500, 250), Color.White);
+                spriteBatch.Draw(play, new Vector2(500, 450), Color.White);
+                spriteBatch.Draw(logo, new Vector2(250, 250), Color.White);
             }
             if (estado == EstadoJuego.Niveles)
             {
@@ -623,7 +648,7 @@ namespace Caidaaas
             {
                 spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
                 spriteBatch.Draw(home, new Vector2(1200, 30), Color.White);
-                spriteBatch.Draw(back, new Vector2(1100, 30), Color.White);    
+                spriteBatch.Draw(back, new Vector2(100, 30), Color.White);    
                 if (nivel==Niveles.Uno)
                 {
                     spriteBatch.Draw(cajaABC[0], new Vector2(250, 500), Color.White);
@@ -649,6 +674,7 @@ namespace Caidaaas
                     
                     if (nivel==Niveles.Uno)
                     {
+                        #region ni1
                         if (gana < 3)
                         {
                             if (!click)
@@ -665,7 +691,10 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-
+                                        if (cosas[i]>700)
+                                        {
+                                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
+                                        }
                                     }
 
 
@@ -679,7 +708,10 @@ namespace Caidaaas
                                     {
                                         if (mostrar[i])
                                         {
-                                            cosas[i]++;
+                                            if (tarda)
+                                            {
+                                                cosas[i]++;
+                                            }
                                             spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                             recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
                                         }
@@ -695,15 +727,18 @@ namespace Caidaaas
                                     }
                                 }
                             }
+                            
                         }
                         else if (gana == 3)
                         {
                             spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
 
                         }
+                        #endregion
                     }
                     else if (nivel==Niveles.Dos)
                     {
+                        #region ni2
                         if (gana < 4)
                         {
                             if (!click)
@@ -720,7 +755,10 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-
+                                        if (cosas[i] > 700)
+                                        {
+                                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
+                                        }
                                     }
 
 
@@ -734,7 +772,10 @@ namespace Caidaaas
                                     {
                                         if (mostrar[i])
                                         {
-                                            cosas[i]++;
+                                            if (tarda)
+                                            {
+                                                cosas[i]++;
+                                            }
                                             spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                             recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
                                         }
@@ -756,9 +797,11 @@ namespace Caidaaas
                             spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
 
                         }
+                        #endregion
                     }
                     else if (nivel == Niveles.Tres)
                     {
+                        #region ni3
                         if (gana < 5)
                         {
                             if (!click)
@@ -775,7 +818,10 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-
+                                        if (cosas[i] > 700)
+                                        {
+                                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
+                                        }
                                     }
 
 
@@ -789,7 +835,10 @@ namespace Caidaaas
                                     {
                                         if (mostrar[i])
                                         {
-                                            cosas[i]++;
+                                            if (tarda)
+                                            {
+                                                cosas[i]++;
+                                            }
                                             spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                             recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
                                         }
@@ -811,11 +860,8 @@ namespace Caidaaas
                             spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
 
                         }
+                        #endregion
                     }
-                   
-
-
-
 
                   //////////////////////////////////////////////
                 
