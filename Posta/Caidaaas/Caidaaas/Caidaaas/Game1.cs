@@ -20,7 +20,8 @@ namespace Caidaaas
         SpriteBatch spriteBatch;
         Texture2D[] textABC2 = new Texture2D[27];
         Texture2D[] cajaABC2 = new Texture2D[27];
-        int[] posY = new int[10] { 130, 230, 330, 430, 530, 630, 730, 830, 930, 1030 };
+        int[] posY = new int[10] { 130, 230, 330, 430, 530, 630, 730, 830, 930, 1030};
+        int[] posRef = new int[10] { 130, 230, 330, 430, 530, 630, 730, 830, 930, 1030 };
         int[] cosas = new int[10];
         int[] pressedY = new int[10];
         int[] pressedX = new int[10];
@@ -643,6 +644,10 @@ namespace Caidaaas
                 spriteBatch.Draw(dos, new Vector2(500, 250), Color.White);
                 spriteBatch.Draw(tres, new Vector2(650, 250), Color.White);
                 spriteBatch.Draw(home, new Vector2(1200, 30), Color.White);
+                for (int i = 0; i < textABC.Length; i++)
+                {
+                    posY[i] = posRef[i];
+                }
             }
             if (estado == EstadoJuego.Juego)
             {
@@ -691,7 +696,7 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                                        if (cosas[i]>700)
+                                        if (cosas[i]>750)
                                         {
                                             spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
                                         }
@@ -755,7 +760,7 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                                        if (cosas[i] > 700)
+                                        if (cosas[i] > 750)
                                         {
                                             spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
                                         }
@@ -818,7 +823,7 @@ namespace Caidaaas
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                                        if (cosas[i] > 700)
+                                        if (cosas[i] > 750)
                                         {
                                             spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
                                         }
