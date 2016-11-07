@@ -265,7 +265,6 @@ namespace Caidaaas
             currentMouseState = Mouse.GetState();
             if (estado==EstadoJuego.Inicio)
             {
-                recPlay = new Rectangle(500, 450, play.Width, play.Height);
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recPlay.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
                     estado = EstadoJuego.Niveles;
@@ -634,8 +633,7 @@ namespace Caidaaas
             {
                 GraphicsDevice.Clear(Color.Orange);
                 spriteBatch.Draw(background2, new Rectangle(0, 0, background2.Width, background2.Height), Color.White);
-                spriteBatch.Draw(play, new Vector2(500, 450), Color.White);
-                spriteBatch.Draw(logo, new Vector2(250, 250), Color.White);
+                spriteBatch.Draw(logo, new Vector2(400, 130), Color.White);
             }
             if (estado == EstadoJuego.Niveles)
             {

@@ -391,15 +391,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="logo.png">
-      <Name>logo</Name>
+    <Compile Include="ouch.png">
+      <Name>ouch</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ouch.png">
-      <Name>ouch</Name>
+    <Compile Include="logo.png">
+      <Name>logo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
