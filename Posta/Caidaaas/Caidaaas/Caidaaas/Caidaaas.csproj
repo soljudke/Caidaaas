@@ -16,7 +16,7 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>89190e5e-6230-4489-9452-a7a9ec0d435b</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>logo2.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -114,6 +114,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="logo2.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CaidaaasContent\CaidaaasContent.contentproj">
