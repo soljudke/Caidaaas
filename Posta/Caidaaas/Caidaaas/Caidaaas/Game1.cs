@@ -16,6 +16,7 @@ namespace Caidaaas
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        #region vars
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D[] textABC2 = new Texture2D[27];
@@ -51,9 +52,8 @@ namespace Caidaaas
         int flag3 = 0;
         int flag4 = 0;
         int flag5 = 0;
-        int letra1 = -1;
-        int letra2=-1;
-        int letra3=-1;
+        Rectangle recRepeat;
+        Texture2D repeat;
         Rectangle linea;
         Rectangle recRef;
         Texture2D texRef;
@@ -94,6 +94,7 @@ namespace Caidaaas
             Tres,
             inicial,
         }
+        #endregion
         EstadoJuego estado = EstadoJuego.Inicio;
         EstadoJuego estadoViejo = EstadoJuego.Inicio;
         Niveles nivel = Niveles.inicial;
@@ -132,6 +133,7 @@ namespace Caidaaas
             // TODO: use this.Content to load your game content here
             texLinea = Content.Load<Texture2D>("a");
             texRef= Content.Load<Texture2D>("b");
+            repeat = Content.Load<Texture2D>("repeat");
             yupi = Content.Load<Texture2D>("yupi");
             ouch = Content.Load<Texture2D>("ouch");
             background = Content.Load<Texture2D>("background");
@@ -283,7 +285,7 @@ namespace Caidaaas
             if (estado == EstadoJuego.Niveles)
             {
                 #region niveles
-                recBack = new Rectangle(100, 30, back.Width, back.Height);
+                recBack = new Rectangle(20, 20, back.Width, back.Height);
                 recUno = new Rectangle(350, 250, uno.Width, uno.Height);
                 recDos = new Rectangle(500, 250, dos.Width, dos.Height);
                 recTres = new Rectangle(650, 250, tres.Width, tres.Height);
@@ -376,6 +378,8 @@ namespace Caidaaas
 
             if (estado==EstadoJuego.Juego)
             {
+                recBack = new Rectangle(1200, 100, back.Width, back.Height);
+                recRepeat = new Rectangle(1200, 170, back.Width, back.Height);
                 if (linea.Intersects(recRef))
                 {
                     nodraw = true;
@@ -386,6 +390,29 @@ namespace Caidaaas
                 {
                     estado = EstadoJuego.Niveles;
                     //estadoViejo = EstadoJuego.Juego;
+                }
+                if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recRepeat.Contains(currentMouseState.X, currentMouseState.Y)))
+                {
+                    for (int i = 0; i < textABC.Length; i++)
+                    {
+                        fueTocado[i] = 0;
+                        cosas[i] = 0;
+                        mostrar[i] = true;
+                        textABC2[i] = Content.Load<Texture2D>(abc[i]);
+                        recABC2[i] = new Rectangle(x, cosas[i], textABC2[i].Width, textABC2[i].Height);
+                        cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
+                        x = x + textABC2[i].Width;
+                    }
+                    nodraw = false;
+                    flag1 = 0;
+                    flag2 = 0;
+                    flag3 = 0;
+                    flag4 = 0;
+                    flag5 = 0;
+                    iSele = -1;
+                    gana = 0;
+                    cosaRef = 0;
+                    Jugar();   
                 }
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
@@ -675,7 +702,8 @@ namespace Caidaaas
             {
                 spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
                 spriteBatch.Draw(home, new Vector2(1200, 30), Color.White);
-                spriteBatch.Draw(back, new Vector2(100, 30), Color.White);    
+                spriteBatch.Draw(back, new Vector2(1200, 100), Color.White);
+                spriteBatch.Draw(repeat, new Vector2(1200, 170), Color.White);
                 if (nivel==Niveles.Uno)
                 {
                     spriteBatch.Draw(cajaABC[0], new Vector2(350, 500), Color.White);
