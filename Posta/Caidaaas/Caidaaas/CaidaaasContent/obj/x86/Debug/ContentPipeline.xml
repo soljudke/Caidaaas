@@ -524,15 +524,6 @@
       <Time>2016-11-02T13:20:32-03:00</Time>
     </Item>
     <Item>
-      <Source>yupi.jpg</Source>
-      <Name>yupi</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\c\Desktop\Caidaaas\Posta\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\yupi.xnb</Output>
-      <Time>2016-11-02T13:20:32-03:00</Time>
-    </Item>
-    <Item>
       <Source>background.jpg</Source>
       <Name>background</Name>
       <Importer>TextureImporter</Importer>
@@ -620,7 +611,16 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\c\Desktop\Caidaaas\Posta\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\ouch.xnb</Output>
-      <Time>2016-11-07T12:16:11.237898-03:00</Time>
+      <Time>2016-11-08T17:45:41.0054336-03:00</Time>
+    </Item>
+    <Item>
+      <Source>yupi.png</Source>
+      <Name>yupi</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\c\Desktop\Caidaaas\Posta\Caidaaas\Caidaaas\Caidaaas\bin\x86\Debug\Content\yupi.xnb</Output>
+      <Time>2016-11-08T18:15:12.1757408-03:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

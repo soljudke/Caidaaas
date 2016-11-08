@@ -770,12 +770,12 @@ namespace Caidaaas
                         }
                         else if (gana == 3)
                         {
-                            spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+                            spriteBatch.Draw(yupi, new Vector2(250, 100), Color.White);
 
                         }
                         if (nodraw)
                         {
-                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);                               
+                            spriteBatch.Draw(ouch, new Vector2(300, 100), Color.White);                               
                         }
                         #endregion
                     }
@@ -846,12 +846,12 @@ namespace Caidaaas
                         }
                         else if (gana == 4)
                         {
-                            spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+                            spriteBatch.Draw(yupi, new Vector2(250, 100), Color.White);
 
                         }
                         if (nodraw)
                         {
-                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
+                            spriteBatch.Draw(ouch, new Vector2(300, 100), Color.White);
                         }
                         #endregion
                     }
@@ -922,12 +922,12 @@ namespace Caidaaas
                         }
                         else if (gana == 5)
                         {
-                            spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
+                            spriteBatch.Draw(yupi, new Vector2(250, 100), Color.White);
 
                         }
                         if (nodraw)
                         {
-                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
+                            spriteBatch.Draw(ouch, new Vector2(300, 100), Color.White);
                         }
                         #endregion
                     }
