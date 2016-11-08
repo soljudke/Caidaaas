@@ -402,6 +402,7 @@ namespace Caidaaas
                         recABC2[i] = new Rectangle(x, cosas[i], textABC2[i].Width, textABC2[i].Height);
                         cajaABC2[i] = Content.Load<Texture2D>(cabc[i]);
                         x = x + textABC2[i].Width;
+                        posY[i] = posRef[i];
                     }
                     nodraw = false;
                     flag1 = 0;
@@ -466,6 +467,7 @@ namespace Caidaaas
                         pressedX[iSele] = currentMouseState.X - 30;
                         pressedY[iSele] = currentMouseState.Y - 30;
                         recABC[iSele] = new Rectangle(currentMouseState.X - 30, currentMouseState.Y - 30, textABC[iSele].Width, textABC[iSele].Height);
+                        nodraw = false;
                     }
                     else if (previousMouseState.LeftButton == ButtonState.Released & currentMouseState.LeftButton == ButtonState.Pressed)
                     {
