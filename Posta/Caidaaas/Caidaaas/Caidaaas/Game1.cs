@@ -45,6 +45,7 @@ namespace Caidaaas
         int gana = 0;
         bool click = false;
         bool click2 = false;
+        int cosaRef;
         int flag1 = 0;
         int flag2 = 0;
         int flag3 = 0;
@@ -53,6 +54,8 @@ namespace Caidaaas
         int letra1 = -1;
         int letra2=-1;
         int letra3=-1;
+        Rectangle linea;
+        Rectangle recRef;
         Texture2D yupi;
         Texture2D ouch;
         Texture2D background;
@@ -361,6 +364,12 @@ namespace Caidaaas
 
             if (estado==EstadoJuego.Juego)
             {
+               
+                
+                linea = new Rectangle(750, 20, 1200, 5);
+                recRef = new Rectangle(cosaRef, 20, 10, 10);
+               
+                 
                 
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recBack.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
@@ -692,16 +701,13 @@ namespace Caidaaas
                                         if (tarda)
                                         {
                                             cosas[i]++;
+                                            cosaRef++;
                                         }
 
                                         spriteBatch.Draw(textABC[i], new Vector2(posY[i], cosas[i]), Color.White);
                                         recABC[i] = new Rectangle(posY[i], cosas[i], textABC[i].Width, textABC[i].Height);
-                                        if (cosas[i]>750)
-                                        {
-                                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
-                                        }
+                                        
                                     }
-
 
                                 }
                             }
@@ -738,6 +744,10 @@ namespace Caidaaas
                         {
                             spriteBatch.Draw(yupi, new Vector2(100, 100), Color.White);
 
+                        }
+                        else if (recRef.Intersects(linea))
+                        {
+                            spriteBatch.Draw(ouch, new Vector2(100, 100), Color.White);
                         }
                         #endregion
                     }
