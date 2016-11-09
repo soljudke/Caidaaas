@@ -459,7 +459,7 @@ namespace Caidaaas
                 }
                 if (iSele != -1)
                 {
-                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recABC[iSele].Contains(previousMouseState.X, previousMouseState.Y) && (recABC[iSele].Contains(currentMouseState.X, currentMouseState.Y))))
+                    if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recABC[iSele].Contains(previousMouseState.X, previousMouseState.Y) && (recABC[iSele].Contains(currentMouseState.X, currentMouseState.Y))) && (currentMouseState.X > 0 && currentMouseState.X < 1250) && (currentMouseState.Y > 0 && currentMouseState.Y <750 ))
                     {
                         click = true;
                         click2 = false;
@@ -488,8 +488,6 @@ namespace Caidaaas
                         posY[iSele] = currentMouseState.X - 30;
 
                     }
-                
-                    
                 }
                 if ((previousMouseState.LeftButton == ButtonState.Pressed && currentMouseState.LeftButton == ButtonState.Pressed) && (recHome.Contains(currentMouseState.X, currentMouseState.Y)))
                 {
@@ -801,6 +799,7 @@ namespace Caidaaas
                         else if (gana == 3)
                         {
                             spriteBatch.Draw(yupi, new Vector2(250, 100), Color.White);
+                            nodraw = false;
 
                         }
                         if (nodraw)
